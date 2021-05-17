@@ -1,0 +1,172 @@
+$orange : #fd2d01;
+$orangeClaire : #ffa290;
+
+@mixin roboto500 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+header{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    img{
+        width: 60%;
+        position: absolute;
+        left: -15px;
+        max-width: 300px;
+    }
+    i{
+        position: absolute;
+        right: 20px;
+        top: 40px;
+        font-size: 100%;
+        color: $orange;
+    }
+
+    a{
+        @include roboto500;
+        text-decoration: none;
+        color: $orange;
+        font-size: 24px;
+        vertical-align:middle;
+        width: 48%;
+        padding: 12px 0;
+        display: flex;
+        justify-content: center;
+        border-radius: 15px;
+    }
+    
+}
+.fil{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.publication{
+    border: $orange solid 3px;
+    border-radius: 25px;
+    background-color: $orangeClaire;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    img{
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 15px;
+    }
+    .commentaire{
+        display: flex;
+        position: relative;
+        border: $orange solid 2px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 5px;
+        .likes{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+        }
+        .nomCom{
+            font-weight: bold;
+            margin: 15px;
+        }
+        .contenuCom{
+            padding-right: 80px;
+        }
+    }
+}
+
+.monCompte, .modifierCompte{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    input{
+        position: absolute;
+        right: 5%;
+        margin-top: 12px;
+        height: 20px;
+    }
+    a{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    img{
+        width: 100px;
+        border-radius: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 25px;
+    }
+    .ligneProfile{
+        display: flex;
+        margin-left: 10%;
+        p{
+            @include roboto500()
+        }
+    }
+}
+
+.connexion{
+    margin-bottom: 150px;
+    margin-top: 100px;
+    .ligneCon{
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        input{
+            width: 80%;
+            height: 60px;
+            border-radius:40px;
+            text-align: center;
+            font-size: 24px;
+            .bouton1{
+                font-weight: normal;
+                margin-bottom: -150px;
+            }
+        }
+    }
+}
+
+footer{
+    width: 100%;
+    background-color: $orangeClaire;
+    display: flex;
+    margin-top: 30px;
+    padding: 25px 0;
+    justify-content:space-around;
+    a{
+        text-decoration: none;
+        color: black;
+        @include roboto500;
+        font-weight: bold;
+    }
+}
+
+
+
+.bouton1{
+    @include roboto500;
+    font-weight: bold;
+    width: 200px;
+    padding: 15px 0;
+    background-color: $orangeClaire;
+    border: $orange 2px solid;
+    border-radius: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 40px;        
+    transition-duration: 500ms;
+    &:hover, &:active{
+        transform: scale(1.1);
+        transition-duration: 500ms;
+    }
+}
+.marg0{
+    margin-bottom: 0;
+}
