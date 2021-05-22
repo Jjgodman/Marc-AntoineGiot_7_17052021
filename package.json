@@ -1,8 +1,19 @@
 {
   "dependencies": {
-    "sass": "^1.32.13"
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "sass": "^1.32.13",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0"
   },
   "scripts": {
     "sass": "sass --watch ./frontend/scss/style.scss:./frontend/css/style.css"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
