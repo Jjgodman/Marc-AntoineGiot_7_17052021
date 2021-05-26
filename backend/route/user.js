@@ -13,5 +13,7 @@ router.post('/login', userCtrl.login);
 router.get('/getUserProfile', userCtrl.getUserProfile);
 router.put('/updateUserProfile', userCtrl.updateUserProfile);
 router.delete('/deleteUserProfile', userCtrl.deleteUserProfile);
+router.get('/authentifier', userCtrl.authentifier);
+
 
 module.exports = router;

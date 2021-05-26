@@ -1,9 +1,10 @@
 const express = require('../node_modules/express');
 const mysql = require('../node_modules/mysql');
 const bodyParser = require("../node_modules/body-parser");
+const path=require('../node_modules/path')
 
 
-//const publiRoutes = require('./route/publi');
+const publiRoutes = require('./route/publi');
 const userRoutes = require('./route/user');
 
 const app = express();
@@ -17,7 +18,8 @@ app.use((req, res, next) => {
     next();
 });
 
-//app.use('/api/publi', publiRoutes);
+app.use('/image', express.static(path.join(__dirname, 'image')));
+app.use('/api/publi', publiRoutes);
 app.use('/api/user', userRoutes);
 
 

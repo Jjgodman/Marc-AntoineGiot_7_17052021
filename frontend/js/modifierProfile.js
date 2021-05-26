@@ -1,6 +1,7 @@
 main()
 
 function main() {
+    isAuthentifier()
     affichageForm()
     envoieForm()
     deleteUser()
@@ -92,6 +93,7 @@ async function changementInfo(donnee) {
         else {
             if(response.status ==401){
                 response.json().then(function(data) {
+                    console.log(data)
                     switch (data.error) {
                         case 'bad name' : alert('Entrez un vrai nom');break
                         case 'bad prenom' : alert('Entrez un vrai prenom');break
@@ -108,3 +110,31 @@ async function changementInfo(donnee) {
     }
 }
 
+async function isAuthentifier() {
+    var token=sessionStorage.getItem('token')
+    if (token==null){
+        window.location.href="./connexion.html"
+    }
+    else{
+        try{
+            let response = await fetch ("http://localhost:3000/api/user/authentifier", {
+                method: "GET",
+                headers: {
+                        "Content-Type" : "application/json",
+                        "authorization" : token
+                    }
+            });
+            if (!response.ok) {
+                window.location.href="./connexion.html"
+            }
+            else{response.json().then(function(data){
+                if (!data.respo.iat) {
+                    window.location.href="./connexion.html"
+                }
+            })}
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+}

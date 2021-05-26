@@ -3,6 +3,7 @@ main()
 async function main() {
     const token = sessionStorage.getItem('token')
     const info = await getInfo(token)
+    isAuthentifier()
     affichageInfo(info)
     deco()
 }
@@ -53,4 +54,33 @@ function deco(){
         sessionStorage.clear()
         window.location.href="./connexion.html"
     })
+}
+
+async function isAuthentifier() {
+    var token=sessionStorage.getItem('token')
+    if (token==null){
+        window.location.href="./connexion.html"
+    }
+    else{
+        try{
+            let response = await fetch ("http://localhost:3000/api/user/authentifier", {
+                method: "GET",
+                headers: {
+                        "Content-Type" : "application/json",
+                        "authorization" : token
+                    }
+            });
+            if (!response.ok) {
+                window.location.href="./connexion.html"
+            }
+            else{response.json().then(function(data){
+                if (!data.respo.iat) {
+                    window.location.href="./connexion.html"
+                }
+            })}
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
 }

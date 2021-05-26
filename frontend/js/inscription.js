@@ -52,7 +52,7 @@ async function addUserToBdd(donnee) {
             method: "POST",
             headers: {
                     "Content-Type" : "application/json",
-                },
+            },
             body: jsonDonnee,
         });
         //si c'est bon cela renvoie vers la page formulaire
@@ -79,6 +79,6 @@ async function addUserToBdd(donnee) {
         }
     }
     catch (e) {
-        console.log(e)
+        console.log('error : ',e)
     }
 }

@@ -8,16 +8,15 @@ const models = require('../../models')
 const mysqlConnection = require('../utils/database');
 
 
-//route pour la création de compte
 exports.signup = (req, res, next) => {
   var email = req.body.email;
   var nom = req.body.nom;
   var prenom = req.body.prenom;
   var password = req.body.password;
 
-  if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/.test(password)) {   
-    return res.status(401).json({ error: 'weak password' });
-  }
+    if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/.test(password)) {   
+      return res.status(401).json({ error: 'weak password' });
+    }
 
   if (!/^[A-Za-z-]{3,25}$/.test(nom)) {
     return res.status(401).json({ error: 'bad name' });
@@ -66,7 +65,6 @@ exports.signup = (req, res, next) => {
   });
 };
 
-//route pour la connexion
 exports.login = (req, res, next) => {
   var email=req.body.email;
   var password=req.body.password;
@@ -166,7 +164,7 @@ exports.updateUserProfile =async (req, res, next) => {
   if (email != "" && !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
     return res.status(401).json({ error: 'bad email' });
   } 
-  userAT=models.User.findOne({
+  userAT=await models.User.findOne({
     attributes: ["email"],
     where: { email: email }
   })
@@ -220,9 +218,28 @@ exports.deleteUserProfile =async (req, res) => {
 		}
     userToFind.destroy({ id: req.body.id })
       .then(() => res.status(200).json({ message: 'User delete'}))
-      .catch(error => res.status(400).json({ error }));
+      .catch
   }
   catch(error){
     res.status(400).json({error})
+  }
+}
+
+exports.authentifier =async (req, res) => {
+  try{
+    var token= req.headers['authorization']
+    var respo= getToken(token)
+    res.status(200).json({ respo})
+  }
+  catch(error){
+    res.status(400).json({error})
+  }
+
+  function getToken(token) {
+    try {
+      var jwtToken = jwt.verify(token, 'TOKEN')
+      return jwtToken
+    }
+    catch(error){return error}
   }
 }

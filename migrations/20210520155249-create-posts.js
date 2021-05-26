@@ -16,9 +16,13 @@ module.exports = {
           key: 'id'
         }
       },
-      image: {
+      titre: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      image: {
+        allowNull: false,
+        type: Sequelize.BLOB
       },
       createdAt: {
         allowNull: false,

@@ -52,6 +52,19 @@ header{
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
+    .titrePubli{
+        @include roboto500();
+        width: 92%;
+        height: 24px;
+        font-weight: bold;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 0;
+        font-size: 20px;
+        overflow:hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
     img{
         width: 95%;
         margin-left: auto;
@@ -111,7 +124,7 @@ header{
     }
 }
 
-.connexion{
+.connexion, .addPubli{
     margin-bottom: 150px;
     margin-top: 100px;
     .ligneCon{
@@ -129,6 +142,29 @@ header{
                 margin-bottom: -150px;
             }
         }
+        label{
+            @include roboto500;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            width: 80%;
+            padding: 15px 0;
+            background-color: $orangeClaire;
+            border: $orange 2px solid;
+            border-radius: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 25px;
+            margin-bottom: 40px;        
+            transition-duration: 500ms;
+            &:hover, &:active{
+                transform: scale(1.1);
+                transition-duration: 500ms;
+            }
+        }
+    }
+    #image{
+        display: none;
     }
 }
 
@@ -169,4 +205,24 @@ footer{
 }
 .marg0{
     margin-bottom: 0;
+}
+
+.bouton2{
+    position :fixed;
+    z-index: 5;
+    bottom: 15%;
+    right: 10%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    background-color: #ff795e;
+    border: #fd2d01 2px solid;
+    border-radius: 25px;        
+    transition-duration: 500ms;
+    &:hover, &:active{
+        transform: scale(1.1);
+        transition-duration: 500ms;
+  }
 }
