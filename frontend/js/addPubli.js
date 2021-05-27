@@ -5,7 +5,7 @@ function main() {
 }
 function affichage() {
     document.getElementById('addPubli').innerHTML =`
-    <form action="" id="formPubli" enctype="multipart/form-data">
+    <form id="formPubli" action="">
         <div class="ligneCon">
             <input type="text" name="titre" id="titre" placeholder="Titre" required>
         </div>
@@ -20,20 +20,28 @@ function affichage() {
     `
 }
 
+
 async function donneePubli(){
-    let form = document.getElementById("formPubli")
-    let idUSERS=sessionStorage.getItem('userId')
-    let titre = document.getElementById("titre").value
-    let image = document.getElementById("image").files[0]
-    var donnee = {
-        idUSERS:idUSERS,
-        titre : titre,
-        image : image
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", sessionStorage.getItem('token'));
+
+    var formdata = new FormData();
+    formdata.append("'titre'", "test");
+    formdata.append("image", document.getElementById('image').files[0], document.getElementById('image').value);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+};
+
+    fetch("http://localhost:3000/api/publi/addPubli", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
     }
-    let formData = new FormData();    
-    formData.append("image", image);
-    await fetch('http://localhost:3000/image', {method: "POST", body: image});
-}
 
 function enregistrementPubli() {
     const form = document.getElementById("formPubli")

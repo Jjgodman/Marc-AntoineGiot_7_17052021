@@ -1,25 +1,28 @@
 const models = require('../../models');
+const jwt = require('../../node_modules/jsonwebtoken');
 const fs = require("fs");
-const imageToBase64  = require('../../node_modules/image-to-base64')
-//const dotenv  = require('../../backend/node_modules/dotenv');
-//dotenv.config();
-
-
 const mysqlConnection = require('../utils/database');
 
 
 exports.addPubli = async (req, res,) => {
-    console.log('oui');
-    console.log(req.header);
-    const idUSERS=req.body.idUSERS
+
+    var headerAuth=req.headers['authorization']
+    var userId=getUserId(headerAuth)
+    
     const titre=req.body.titre
-    const image=`${req.protocol}://${req.get('host')}/images/${req.body.image}`
+    const image=`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+
     try{
-        console.log('test');
+
+        const user = await models.User.findOne({
+            where:{id:userId},
+            attributes:["id"]
+        })
+        console.log(user.id);
         const publi = await models.Posts.create({
-            idUSERS:idUSERS,
             image: image,
-            titre:titre
+            titre:titre,
+            UserId : user.id,
         });
         console.log('test2')
         return res.status(201).json({
@@ -30,4 +33,23 @@ exports.addPubli = async (req, res,) => {
     catch(e){
         console.log('err')
         res.status(400).json({ e: e.message });}
+
+    function parseAutorization(authorization){
+            return (authorization !=null) ? authorization.replace('Bearer ',''):null
+    }
+    function getUserId(authorization) {
+        var userId=-1
+        var token = parseAutorization(authorization)
+        if(token!=null){
+            try {
+                var jwtToken = jwt.verify(token, 'TOKEN')
+                if(jwtToken!=null){
+                    userId=jwtToken.userId
+                }
+            }
+            catch(err){}
+        }
+        return userId
+    }
+
 };

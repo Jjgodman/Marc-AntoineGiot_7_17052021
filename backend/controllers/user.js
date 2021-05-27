@@ -107,6 +107,7 @@ exports.login = (req, res, next) => {
 exports.getUserProfile = (req, res, next) => {
   var headerAuth=req.headers['authorization']
   var userId=getUserId(headerAuth)
+  console.log(userId);
   if(userId<0){
     return res.status(400).json({'error':'wrong token'})
   }

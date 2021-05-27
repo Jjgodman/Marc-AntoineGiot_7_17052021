@@ -18,7 +18,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/image', express.static(path.join(__dirname, 'image')));
+console.log(path.join(__dirname, 'image'));
+app.use('/images', express.static(path.join(__dirname, 'image')));
 app.use('/api/publi', publiRoutes);
 app.use('/api/user', userRoutes);
 
