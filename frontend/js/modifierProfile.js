@@ -9,7 +9,6 @@ function main() {
 
 function affichageForm() {
     document.getElementById('modifierCompte').innerHTML = `
-    <img src="../image/user.jpg" alt="photo de profile">
     <div class="ligneProfile">
         <p class="cat">Nom :&nbsp</p>
         <input type="text" name="forNom" id="forNom">

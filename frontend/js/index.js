@@ -59,7 +59,6 @@ async function getAllPubli(){
             return response.json()
         })
         .then(function(publis){
-            console.log(publis);
             affichagePubli(publis)
         })
         .catch(function(e){
@@ -67,12 +66,13 @@ async function getAllPubli(){
         })
 }
 
-function affichagePubli(publis){
+async function affichagePubli(publis){
     var mur = document.getElementById("publications")
     for (publi of publis){
         var image = publi.image
         mur.innerHTML+=`
         <div class="publication">
+            <p class="auteur">`+publi.prenomAuteur+` `+publi.nomAuteur+`</p>
             <p class="titrePubli">`+publi.titre+`</p>
             <img src="`+image.substr(28)+`" alt="image publié">
             <div class="commentaires">

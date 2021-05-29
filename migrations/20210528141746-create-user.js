@@ -26,7 +26,8 @@ module.exports = {
       },
       admin: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        defaultValue: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

@@ -44,8 +44,7 @@ exports.signup = (req, res, next) => {
           email:email,
           nom:nom,
           prenom:prenom,
-          password:bcryptedPassword,
-          admin:0
+          password:bcryptedPassword
         })
         .then(function(newUser) {
           return res.status(201).json({

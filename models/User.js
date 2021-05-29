@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.User.hasMany(models.Post);
+      models.User.hasMany(models.Commentaire)
     }
   };
   User.init({
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     prenom: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    admin: DataTypes.INTEGER
+    admin: { type: DataTypes.BOOLEAN, default: false }
   }, {
     sequelize,
     modelName: 'User',
