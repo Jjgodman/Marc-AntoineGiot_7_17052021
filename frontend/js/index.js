@@ -3,8 +3,8 @@ main()
 function main() {
     isAuthentifier()
     affichage()
-    affichagePubli()
     addPubli()
+    getAllPubli()
 }
 
 async function isAuthentifier() {
@@ -40,46 +40,64 @@ function affichage() {
     document.getElementById('fil').innerHTML = `
     <input class="bouton2" id="ajoutPosts" type="button" value="+">
             <div id="publications">
-                <div class="publication">
-                    <p class="titrePubli">Test titre</p>
-                    <img src="../image/test-img.jpg" alt="image publié">
-                    <div class="commentaires">
-                        <div class="commentaire">
-                            <p class="nomCom">test</p>
-                            <p class="contenuCom">test</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="publication">
-                    <img src="../image/test-img.jpg" alt="image publié">
-                    <div class="commentaires">
-                        <div class="commentaire">
-                            <p class="nomCom">test</p>
-                            <p class="contenuCom">test</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="publication">
-                    <img src="../image/test-img.jpg" alt="image publié">
-                    <div class="commentaires">
-                        <div class="commentaire">
-                            <p class="nomCom">test</p>
-                            <p class="contenuCom">test</p>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
-            <button class="bouton1">Charger plus...</button>
     `
 }
 
-async function affichagePubli(){
-
-}
 
 async function addPubli() {
     const addBtn = document.getElementById("ajoutPosts")
     addBtn.addEventListener('click', (e) => {
         window.location.href="./addPubli.html"
     })
+}
+
+async function getAllPubli(){
+    await fetch ("http://localhost:3000/api/publi/getAllPubli")
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(publis){
+            console.log(publis);
+            affichagePubli(publis)
+        })
+        .catch(function(e){
+            console.error(e)
+        })
+}
+
+function affichagePubli(publis){
+    var mur = document.getElementById("publications")
+    for (publi of publis){
+        var image = publi.image
+        mur.innerHTML+=`
+        <div class="publication">
+            <p class="titrePubli">`+publi.titre+`</p>
+            <img src="`+image.substr(28)+`" alt="image publié">
+            <div class="commentaires">
+                <div class="commentaire">
+                    <div id="ajoutCom">
+                        <form id="formCom">
+                            <input type="text" name="com" id="com" placeholder="Ajouter un commentaire" required>
+                            <button class="btn"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                    <div class="listCom">
+                        <p class="nomCom">Patrick Test</p>
+                        <p class="contenuCom">ahaha trop drole ca</p>
+                    </div>
+                    <div class="listCom">
+                        <p class="nomCom">Patrick Test</p>
+                        <p class="contenuCom">ahaha trop drole ca</p>
+                    </div>
+                    <div class="listCom">
+                        <p class="nomCom">Patrick Test</p>
+                        <p class="contenuCom">ahaha trop drole ca</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
 }

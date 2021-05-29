@@ -30,7 +30,6 @@ function getInfo(token) {
 function affichageInfo(info) {
     console.log(info)
     document.getElementById('monCompte').innerHTML =`
-    <img src="../image/user.jpg" alt="photo de profile">
     <div class="ligneProfile">
         <p class="cat">Nom :&nbsp</p>
         <p class="val">`+info.nom+`</p>

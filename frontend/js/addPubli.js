@@ -27,7 +27,7 @@ async function donneePubli(){
     myHeaders.append("Authorization", sessionStorage.getItem('token'));
 
     var formdata = new FormData();
-    formdata.append("'titre'", "test");
+    formdata.append("titre", document.getElementById('titre').value);
     formdata.append("image", document.getElementById('image').files[0], document.getElementById('image').value);
 
     var requestOptions = {
@@ -39,7 +39,8 @@ async function donneePubli(){
 
     fetch("http://localhost:3000/api/publi/addPubli", requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => 
+            window.location.href="./index.html")
         .catch(error => console.log('error', error));
     }
 

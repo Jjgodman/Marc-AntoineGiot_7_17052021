@@ -8,26 +8,23 @@ exports.addPubli = async (req, res,) => {
 
     var headerAuth=req.headers['authorization']
     var userId=getUserId(headerAuth)
-    
     const titre=req.body.titre
     const image=`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
     try{
 
         const user = await models.User.findOne({
-            where:{id:userId},
-            attributes:["id"]
+            attributes:["id"],
+            where:{id:userId}
         })
-        console.log(user.id);
-        const publi = await models.Posts.create({
+        const publi = await models.Post.create({
             image: image,
             titre:titre,
-            UserId : user.id,
+            UserId  : user.id,
         });
-        console.log('test2')
         return res.status(201).json({
             'publi id':publi.id
-          })
+        })
     }
     
     catch(e){
@@ -51,5 +48,21 @@ exports.addPubli = async (req, res,) => {
         }
         return userId
     }
+};
 
+exports.getAllPubli = async (req, res,) => {
+    models.Post.findAll().then(
+        (post) =>{
+            const mappedPost = post.map((post) => {
+                post.image = req.protocol+'://'+req.get('host')+'/image/'+post.image
+                return post
+            })
+            res.status(200).json(mappedPost)
+        }
+    )
+    .catch((e)=>{
+        console.log(e);
+        res.status(500).json({e})
+    })
+    .catch(error => res.status(400).json({ error }));
 };

@@ -44,7 +44,8 @@ exports.signup = (req, res, next) => {
           email:email,
           nom:nom,
           prenom:prenom,
-          password:bcryptedPassword
+          password:bcryptedPassword,
+          admin:0
         })
         .then(function(newUser) {
           return res.status(201).json({
@@ -52,6 +53,7 @@ exports.signup = (req, res, next) => {
           })
         })
         .catch(function(err) {
+          console.log(err);
           return res.status(500).json({'error':'cannot add user'})
         })
       })
@@ -61,7 +63,7 @@ exports.signup = (req, res, next) => {
     }
   })
   .catch(function(err) {
-    return res.status(500).json({'error':'unable to verify user'});
+    return res.status(500).json({'error':err});
   });
 };
 

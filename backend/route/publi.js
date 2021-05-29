@@ -6,5 +6,6 @@ const publiCtrl = require('../controllers/publi');
 const auth=require('../middleware/auth')
 
 router.post('/addPubli', multer, publiCtrl.addPubli);
+router.get('/getAllPubli', multer, publiCtrl.getAllPubli);
 
 module.exports = router;

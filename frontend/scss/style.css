@@ -91,6 +91,10 @@ header a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   position: relative;
   border: #fd2d01 solid 2px;
   background-color: white;
@@ -98,20 +102,57 @@ header a {
   padding: 5px;
 }
 
-.publication .commentaire .likes {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+.publication .commentaire #formCom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.publication .commentaire #formCom input {
+  margin-left: 5px;
+  width: 80%;
+  border-radius: 10px;
+  height: 24px;
+}
+
+.publication .commentaire #formCom button {
+  border: none;
+  background-color: white;
   font-size: 20px;
+  -webkit-transition-duration: 500ms;
+          transition-duration: 500ms;
 }
 
-.publication .commentaire .nomCom {
+.publication .commentaire .listCom {
+  margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: wheat;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.publication .commentaire .listCom p {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.publication .commentaire .listCom .nomCom {
   font-weight: bold;
-  margin: 15px;
-}
-
-.publication .commentaire .contenuCom {
-  padding-right: 80px;
 }
 
 .monCompte, .modifierCompte {
@@ -123,6 +164,10 @@ header a {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.monCompte #deco, .modifierCompte #deco {
+  margin-top: 50px;
 }
 
 .monCompte input, .modifierCompte input {
@@ -221,7 +266,7 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 30px;
+  margin-top: 45%;
   padding: 25px 0;
   -ms-flex-pack: distribute;
       justify-content: space-around;
