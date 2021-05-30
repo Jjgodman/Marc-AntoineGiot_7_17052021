@@ -8,5 +8,7 @@ const auth=require('../middleware/auth')
 router.post('/addPubli', multer, publiCtrl.addPubli);
 router.get('/getAllPubli', multer, publiCtrl.getAllPubli);
 router.post('/addCommentaire', publiCtrl.addCommentaire);
+router.delete('/deletePost', publiCtrl.deletePost);
+router.delete('/deleteCom', publiCtrl.deleteCom);
 
 module.exports = router;

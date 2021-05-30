@@ -45,6 +45,7 @@ header{
     
 }
 .publication{
+    position: relative;
     border: $orange solid 3px;
     border-radius: 25px;
     background-color: $orangeClaire;
@@ -52,6 +53,17 @@ header{
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
+    
+    .btnSupr{
+        position: absolute;
+        right: 5%;
+        top: 5%;
+        border: none;
+        background-color:transparent;
+        width: fit-content;
+        font-size: 20px;
+        transition-duration: 500ms;
+    }
     .titrePubli{
         @include roboto500();
         width: 92%;
@@ -104,13 +116,24 @@ header{
             }
         }
         .listCom{
-            margin: 5px;
+            justify-content: space-between;
+            position: relative;
             display: flex;
-            flex-direction: column;
+            flex-direction: line;
+            .btnSuprCom{
+                border: none;
+                background-color:transparent;
+                width: fit-content;
+                font-size: 16px;
+                transition-duration: 500ms;
+            }
+            .ctnCom{
+            margin: 5px;
             background-color: wheat;
             width:fit-content;
             padding: 10px;
             border-radius: 10px;
+            }
             p{
                 margin: 0;
                 @include roboto500();

@@ -126,3 +126,34 @@ exports.addCommentaire = async (req, res,next) => {
         return userId
     }
 };
+
+exports.deletePost = async (req, res,next) => {
+    console.log(req.body.publiId);
+
+    const image = await models.Post.findOne({
+        attributes:["image"],
+        where:{id:req.body.publiId}
+    })
+    models.Commentaire.destroy({ where: { postId: req.body.publiId } });
+    try{
+        const filename = image.image.split('/images/')[1];
+        fs.unlink(`image/${filename}`, () => {
+            models.Post.destroy({ where: { id: req.body.publiId } });
+            res.status(200).json({ message: "Post supprimé" });
+        });
+    }
+    catch(e){
+        return res.status(500).send(e)
+    }
+}
+
+exports.deleteCom = async (req, res,next) => {
+    console.log(req.body);
+    try{
+        models.Commentaire.destroy({ where: { id: req.body.comId } });
+    }
+    catch(e){
+        //console.log(e);
+        return res.status(500).send(e)
+    }
+}

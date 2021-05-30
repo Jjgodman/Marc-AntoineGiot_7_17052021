@@ -51,6 +51,7 @@ header a {
 }
 
 .publication {
+  position: relative;
   border: #fd2d01 solid 3px;
   border-radius: 25px;
   background-color: #ffa290;
@@ -63,6 +64,20 @@ header a {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-bottom: 25px;
+}
+
+.publication .btnSupr {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  border: none;
+  background-color: transparent;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 20px;
+  -webkit-transition-duration: 500ms;
+          transition-duration: 500ms;
 }
 
 .publication .titrePubli {
@@ -137,14 +152,32 @@ header a {
 }
 
 .publication .commentaire .listCom {
-  margin: 5px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: line;
+          flex-direction: line;
+}
+
+.publication .commentaire .listCom .btnSuprCom {
+  border: none;
+  background-color: transparent;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 16px;
+  -webkit-transition-duration: 500ms;
+          transition-duration: 500ms;
+}
+
+.publication .commentaire .listCom .ctnCom {
+  margin: 5px;
   background-color: wheat;
   width: -webkit-fit-content;
   width: -moz-fit-content;
