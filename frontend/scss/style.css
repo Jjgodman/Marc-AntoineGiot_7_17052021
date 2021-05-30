@@ -111,7 +111,7 @@ header a {
   padding: 5px;
 }
 
-.publication .commentaire #formCom {
+.publication .commentaire .formCom {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -121,14 +121,14 @@ header a {
           justify-content: space-between;
 }
 
-.publication .commentaire #formCom input {
+.publication .commentaire .formCom input {
   margin-left: 5px;
   width: 80%;
   border-radius: 10px;
   height: 24px;
 }
 
-.publication .commentaire #formCom button {
+.publication .commentaire .formCom button {
   border: none;
   background-color: white;
   font-size: 20px;
