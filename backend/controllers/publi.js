@@ -2,7 +2,8 @@ const models = require('../../models');
 const jwt = require('../../node_modules/jsonwebtoken');
 const fs = require("fs");
 const mysqlConnection = require('../utils/database');
-
+const dotenv= require('../../node_modules/dotenv')
+dotenv.config();
 
 exports.addPubli = async (req, res,) => {
 
@@ -40,7 +41,7 @@ exports.addPubli = async (req, res,) => {
         var token = parseAutorization(authorization)
         if(token!=null){
             try {
-                var jwtToken = jwt.verify(token, 'TOKEN')
+                var jwtToken = jwt.verify(token, process.env.TOKEN)
                 if(jwtToken!=null){
                     userId=jwtToken.userId
                 }
@@ -116,7 +117,7 @@ exports.addCommentaire = async (req, res,next) => {
         var token = parseAutorization(authorization)
         if(token!=null){
             try {
-                var jwtToken = jwt.verify(token, 'TOKEN')
+                var jwtToken = jwt.verify(token,process.env.TOKEN)
                 if(jwtToken!=null){
                     userId=jwtToken.userId
                 }

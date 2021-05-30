@@ -4,7 +4,7 @@ const bodyParser = require("../node_modules/body-parser");
 const path=require('../node_modules/path')
 const helmet=require('../node_modules/helmet')
 const rateLimit=require('../node_modules/express-rate-limit')
-const dotenv  = require('../backend/node_modules/dotenv');
+const dotenv  = require('../node_modules/dotenv');
 dotenv.config();
 
 

@@ -1,8 +1,8 @@
 const bcrypt = require('../../node_modules/bcrypt');
 const jwt = require('../../node_modules/jsonwebtoken');
 const models = require('../../models')
-//const dotenv  = require('../../backend/node_modules/dotenv');
-//dotenv.config();
+const dotenv= require('../../node_modules/dotenv')
+dotenv.config();
 
 
 const mysqlConnection = require('../utils/database');
@@ -86,7 +86,7 @@ exports.login = (req, res, next) => {
             userId: userFound.id,
               token: jwt.sign(
                 { userId: userFound.id },
-                'TOKEN',
+                process.env.TOKEN,
                 { expiresIn: '1h' }
               )
           });
@@ -139,7 +139,7 @@ exports.getUserProfile = (req, res, next) => {
     var token = parseAutorization(authorization)
     if(token!=null){
       try {
-        var jwtToken = jwt.verify(token, 'TOKEN')
+        var jwtToken = jwt.verify(token,process.env.TOKEN)
         if(jwtToken!=null){
           userId=jwtToken.userId
         }
@@ -239,7 +239,7 @@ exports.authentifier =async (req, res) => {
 
   function getToken(token) {
     try {
-      var jwtToken = jwt.verify(token, 'TOKEN')
+      var jwtToken = jwt.verify(token, process.env.TOKEN)
       return jwtToken
     }
     catch(error){return error}
