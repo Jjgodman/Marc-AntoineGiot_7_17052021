@@ -1,5 +1,5 @@
 main()
-
+//fonction d'initialisation
 async function main() {
     var user = await getUserInfo()
     isAuthentifier()
@@ -7,7 +7,7 @@ async function main() {
     addPubli()
     getAllPubli(user)
 }
-
+//récuperation de l'id et du status d'admin de l'utilisateur
 function getUserInfo(){
     return fetch("http://localhost:3000/api/user/getUserProfile", {
         methode:"GET",
@@ -32,7 +32,7 @@ function getUserInfo(){
 }
 
 
-
+//redirection de l'utilisateur si son token de connexion n'est pas valide
 async function isAuthentifier() {
     var token=sessionStorage.getItem('token')
     if (token==null){
@@ -61,7 +61,7 @@ async function isAuthentifier() {
         }
     }
 }
-
+//affichage de base de l'ecran d'acceuil
 function affichage() {
     document.getElementById('fil').innerHTML = `
     <input class="bouton2" id="ajoutPosts" type="button" value="+">
@@ -71,14 +71,14 @@ function affichage() {
     `
 }
 
-
+//gestion du clique sur le boutton pour ajouter une publication
 async function addPubli() {
     const addBtn = document.getElementById("ajoutPosts")
     addBtn.addEventListener('click', (e) => {
         window.location.href="./addPubli.html"
     })
 }
-
+//récuperation de toute les publication
 async function getAllPubli(user){
     await fetch ("http://localhost:3000/api/publi/getAllPubli")
         .then(function(response){
@@ -91,7 +91,7 @@ async function getAllPubli(user){
             console.error(e)
         })
 }
-
+//affichage de toutes les publication
 async function affichagePubli(publis, user){
     var mur = document.getElementById("publications")
     for (publi of publis){
@@ -114,11 +114,12 @@ async function affichagePubli(publis, user){
             </div>
         </div>
         `
+        //presence du boutton de suppression si l'utilisateur est l'auteur ou s'il est admin
         if (publi.User.id!=user.userId && !user.userAdmin ){
             let btn = document.getElementById('btnSupr'+publi.id)
             btn.style.display = "none"
         }
-
+        //affichage des comentaires
         for(com of publi.Commentaires) {
             document.getElementById("commentaire"+publi.id).innerHTML+=`
             <div class="listCom">
@@ -129,13 +130,14 @@ async function affichagePubli(publis, user){
                 <button class="btnSuprCom admin" id="btnSuprCom`+com.id+`"><i class="fas fa-trash"></i></button>
             </div>
             `
-            
+            //presence du boutton de suppression si l'utilisateur est l'auteur ou s'il est admin
             if (com.userId!=user.userId && !user.userAdmin){
                 let btn = document.getElementById('btnSuprCom'+com.id)
                 btn.style.display = "none"
             }
         }
     }
+    //gestion d'ajout de commentaire
     var btnCom = document.getElementsByClassName("formCom")
     for(var i = 0; i < btnCom.length; i++) {
         (function(index) {
@@ -148,7 +150,7 @@ async function affichagePubli(publis, user){
         })(i);
       }
     
-
+      //gestion de la suppression de publications
     var btnSupr = document.getElementsByClassName("btnSupr")
     for(var i = 0; i < btnSupr.length; i++) {
         (function(index) {
@@ -174,7 +176,7 @@ async function affichagePubli(publis, user){
             })
         })(i);
     }
-
+    //gestion de suppression de commentaires
     var btnSuprCom = document.getElementsByClassName("btnSuprCom")
     for(var i = 0; i < btnSuprCom.length; i++) {
         (function(index) {
@@ -203,7 +205,7 @@ async function affichagePubli(publis, user){
     }
 }
 
-
+//envoie de nouveau commantaire au serveur
 async function addCommentaire (publiId){
     var myHeaders = new Headers();
     myHeaders.append("Authorization", sessionStorage.getItem('token'));

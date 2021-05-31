@@ -1,5 +1,5 @@
 main()
-
+//fonction d'initialisation
 async function main() {
     const token = sessionStorage.getItem('token')
     const info = await getInfo(token)
@@ -7,7 +7,7 @@ async function main() {
     affichageInfo(info)
     deco()
 }
-
+//recuperation des info de l'utilisateur
 function getInfo(token) {
     return fetch("http://localhost:3000/api/user/getUserProfile", {
         methode:"GET",
@@ -26,7 +26,7 @@ function getInfo(token) {
             alert(error)
         })
 }
-
+//affichage des information de l'utilisateur
 function affichageInfo(info) {
     console.log(info)
     document.getElementById('monCompte').innerHTML =`
@@ -46,7 +46,7 @@ function affichageInfo(info) {
     <a href="modifierProfile.html"><button class="bouton1">Modifier le profile</button></a>
     `
 }
-
+//boutton pour se déconnecter
 function deco(){
     document.getElementById('deco').addEventListener('click', e=>{
         e.preventDefault()
@@ -54,7 +54,7 @@ function deco(){
         window.location.href="./connexion.html"
     })
 }
-
+//redirection de l'utilisateur si son token de connexion n'est pas valide
 async function isAuthentifier() {
     var token=sessionStorage.getItem('token')
     if (token==null){

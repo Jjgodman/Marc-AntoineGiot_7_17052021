@@ -373,4 +373,10 @@ footer a {
   -webkit-transition-duration: 500ms;
           transition-duration: 500ms;
 }
+
+.fil, .monCompte, .addPubli, .connexion, .modifierCompte {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 /*# sourceMappingURL=style.css.map */

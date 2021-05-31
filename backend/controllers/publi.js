@@ -1,22 +1,24 @@
+//imporation des module
 const models = require('../../models');
 const jwt = require('../../node_modules/jsonwebtoken');
 const fs = require("fs");
-const mysqlConnection = require('../utils/database');
 const dotenv= require('../../node_modules/dotenv')
 dotenv.config();
 
+//ajout de publication
 exports.addPubli = async (req, res,) => {
-
+    //récuperation des données envoyées
     var headerAuth=req.headers['authorization']
     var userId=getUserId(headerAuth)
     const titre=req.body.titre
     const image=`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     try{
-
+        //récuperation des info de l'user
         const user = await models.User.findOne({
             attributes:["id","nom","prenom"],
             where:{id:userId}
         })
+        //creation de l'user
         const publi = await models.Post.create({
             image: image,
             titre:titre,
@@ -30,9 +32,8 @@ exports.addPubli = async (req, res,) => {
     }
     
     catch(e){
-        console.log('err',e)
         res.status(400).json({ e: e.message });}
-
+    //récuperation de l'id de l'user
     function parseAutorization(authorization){
             return (authorization !=null) ? authorization.replace('Bearer ',''):null
     }
@@ -51,9 +52,10 @@ exports.addPubli = async (req, res,) => {
         return userId
     }
 };
-
+//exportation de toute les publication 
 exports.getAllPubli = async (req, res) => {
     try {
+        //récuperation de toute les publication et de ce qui s'en rapporte( user, commentaire)
         const posts = await models.Post.findAll({
             attributes: ["id", "titre", "image", "createdAt"],
             order: [["createdAt", "DESC"]],
@@ -78,20 +80,21 @@ exports.getAllPubli = async (req, res) => {
         res.status(200).send(posts);
     } 
     catch(e){
-        console.log('err',e)
         res.status(500).json({ e: e.message });}
     };
-
+//ajout de commentaire
 exports.addCommentaire = async (req, res,next) => {
+    //récuperation des info envoyer
     var headerAuth=req.headers['authorization']
     var userId=getUserId(headerAuth)
 
     try{
+        //recuperation des données de l'user
         const user = await models.User.findOne({
             attributes:["id","nom","prenom"],
             where:{id:userId}
         })
-        
+        //ajout du commentaire à la bdd
         const commentaire = await models.Commentaire.create({
             message:req.body.message,
             PostId:req.body.publiId,
@@ -105,10 +108,9 @@ exports.addCommentaire = async (req, res,next) => {
     }
     
     catch(e){
-        console.log('err',e)
         res.status(400).json({ e: e.message });}
 
-
+    //recuperation de l'id de l'user
     function parseAutorization(authorization){
         return (authorization !=null) ? authorization.replace('Bearer ',''):null
     }
@@ -127,15 +129,16 @@ exports.addCommentaire = async (req, res,next) => {
         return userId
     }
 };
-
+//suppression de publication 
 exports.deletePost = async (req, res,next) => {
-    console.log(req.body.publiId);
-
+    //récuperation de l'image
     const image = await models.Post.findOne({
         attributes:["image"],
         where:{id:req.body.publiId}
     })
+    //suppression des commentaires de la publication 
     models.Commentaire.destroy({ where: { postId: req.body.publiId } });
+    //suppresion de l'image
     try{
         const filename = image.image.split('/images/')[1];
         fs.unlink(`image/${filename}`, () => {
@@ -147,14 +150,14 @@ exports.deletePost = async (req, res,next) => {
         return res.status(500).send(e)
     }
 }
-
+//suppresion de commentaire
 exports.deleteCom = async (req, res,next) => {
-    console.log(req.body);
+    //recuperation des données envoyer
     try{
+        //suppression du commentaire
         models.Commentaire.destroy({ where: { id: req.body.comId } });
     }
     catch(e){
-        //console.log(e);
         return res.status(500).send(e)
     }
 }

@@ -1,10 +1,10 @@
 main()
-
+//fonction d'initialisation
 function main() {
     affichageForm()
     enregistrementUser()
 }
-
+//affichage du formulaire d'inscription
 function affichageForm(){
     const form = document.getElementById('formIns')
     form.innerHTML=(`
@@ -25,7 +25,7 @@ function affichageForm(){
     </div>
     `)
 }
-
+//gestion de l'enregistrement d'un nouvel utilisateur
 function enregistrementUser(){
     const btnEnvIns = document.getElementById("envoieIns")
     btnEnvIns.addEventListener('click', (e) => {
@@ -34,7 +34,7 @@ function enregistrementUser(){
         addUserToBdd(donnee)
     })
 }
-
+//récuperation des données du formulaire
 function donneeUser(){
     const donnee = {
         email:document.getElementById("email").value,
@@ -44,7 +44,7 @@ function donneeUser(){
     }
     return donnee
 }
-
+//ajout de l'utilisateur à la base de données
 async function addUserToBdd(donnee) {
     const jsonDonnee = JSON.stringify(donnee)
     try{
@@ -55,12 +55,10 @@ async function addUserToBdd(donnee) {
             },
             body: jsonDonnee,
         });
-        //si c'est bon cela renvoie vers la page formulaire
         if (response.ok) {
             window.location.href="./connexion.html"
 
         }
-        //sinon cela marque leretour serveur
         else {
             if(response.status ==401){
                 response.json().then(function(data) {

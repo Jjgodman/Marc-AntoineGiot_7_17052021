@@ -1,12 +1,13 @@
 main()
 
+//fonction d'initialisation
 function main() {
     isAuthentifier()
     affichageForm()
     envoieForm()
     deleteUser()
 }
-
+//Affichage du formualire de modification de profils
 function affichageForm() {
     document.getElementById('modifierCompte').innerHTML = `
     <div class="ligneProfile">
@@ -26,7 +27,7 @@ function affichageForm() {
     <button class="bouton1" id="delete">Supprimer mon profile</button>
     `
 }
-
+//gestion de l'envoie des données
 function envoieForm() {
     const bouton = document.getElementById('chgmProfile')
     bouton.addEventListener('click', (event) =>{
@@ -35,7 +36,7 @@ function envoieForm() {
         changementInfo(donnee)
     })
 }
-
+//récuperation des données du formulaire
 function recupererInfo(){
     const donnee = {
         id:sessionStorage.getItem('userId'),
@@ -45,7 +46,7 @@ function recupererInfo(){
     }
     return donnee
 }
-
+//suppression du profile
 function deleteUser() {
     const bouton = document.getElementById('delete')
     bouton.addEventListener('click', async (event) =>{
@@ -75,7 +76,7 @@ function deleteUser() {
         }
     })
 }
-
+//envoie des nouvelle information au serveur
 async function changementInfo(donnee) {
     try{
         let response = await fetch ("http://localhost:3000/api/user/updateUserProfile", {
@@ -108,7 +109,7 @@ async function changementInfo(donnee) {
         console.log(e)
     }
 }
-
+//redirection de l'utilisateur si son token de connexion n'est pas valide
 async function isAuthentifier() {
     var token=sessionStorage.getItem('token')
     if (token==null){

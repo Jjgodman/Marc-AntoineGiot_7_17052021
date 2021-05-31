@@ -1,8 +1,11 @@
 main()
+//fonction d'initialisation
 function main() {
+    isAuthentifier()
     affichage()
     enregistrementPubli()
 }
+//affichage du formulaire
 function affichage() {
     document.getElementById('addPubli').innerHTML =`
     <form id="formPubli" action="">
@@ -20,7 +23,15 @@ function affichage() {
     `
 }
 
-
+//récuperation des information de la publication
+function enregistrementPubli() {
+    const form = document.getElementById("formPubli")
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        donneePubli()
+    })
+}
+//envoie des donnee au serveur
 async function donneePubli(){
 
     var myHeaders = new Headers();
@@ -43,10 +54,32 @@ async function donneePubli(){
         .catch(error => console.log('error', error));
 }
 
-function enregistrementPubli() {
-    const form = document.getElementById("formPubli")
-    form.addEventListener('submit', (e) => {
-        e.preventDefault()
-        donneePubli()
-    })
+//redirection de l'utilisateur si son token de connexion n'est pas valide
+async function isAuthentifier() {
+    var token=sessionStorage.getItem('token')
+    if (token==null){
+        window.location.href="./connexion.html"
+    }
+    else{
+        try{
+            let response = await fetch ("http://localhost:3000/api/user/authentifier", {
+                method: "GET",
+                headers: {
+                        "Content-Type" : "application/json",
+                        "authorization" : token
+                    }
+            });
+            if (!response.ok) {
+                window.location.href="./connexion.html"
+            }
+            else{response.json().then(function(data){
+                if (!data.respo.iat) {
+                    window.location.href="./connexion.html"
+                }
+            })}
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
 }
