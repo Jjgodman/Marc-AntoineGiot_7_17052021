@@ -1,6 +1,6 @@
 # Projet 7 - Groupomania
 
-##Procédure d'installation :
+## Procédure d'installation :
 
 1.:Démarrez un invité de commande dans le dossier principal
 
