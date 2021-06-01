@@ -6,7 +6,7 @@
 
 2.:Exécutez la commande npm install
 
-3.:Connectez-vous au serveur mysql de votre choix et éxecutez la commande CREATE database_development;
+3.:Connectez-vous au serveur mysql de votre choix et éxecutez la commande CREATE database_development; puis USE database_development;
 
 4.:Toujours dans votre serveur mysql exécutez la commande SOURCE "chemin jusqu'au fichier database/social.sql"
 
