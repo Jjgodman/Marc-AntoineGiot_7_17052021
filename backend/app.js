@@ -1,12 +1,14 @@
 //importation des module
 const express = require('../node_modules/express');
-const mysql = require('../node_modules/mysql');
 const bodyParser = require("../node_modules/body-parser");
 const path=require('../node_modules/path')
 const helmet=require('../node_modules/helmet')
 const rateLimit=require('../node_modules/express-rate-limit')
 const dotenv  = require('../node_modules/dotenv');
+const database = require('../backend/utils/database')
 
+//connection a la bdd
+database
 //paramettrage des module
 dotenv.config();
 const app = express();
@@ -17,7 +19,6 @@ const limiter = rateLimit({
 //imporation des routes
 const publiRoutes = require('./route/publi');
 const userRoutes = require('./route/user');
-
 
 app.use(helmet());
 app.use(bodyParser.json());
