@@ -81,7 +81,7 @@ exports.getAllPubli = async (req, res) => {
     } 
     catch(e){
         res.status(500).json({ e: e.message });}
-    };
+};
 //ajout de commentaire
 exports.addCommentaire = async (req, res,next) => {
     //récuperation des info envoyer

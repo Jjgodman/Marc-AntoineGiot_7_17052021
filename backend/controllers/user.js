@@ -3,6 +3,7 @@ const bcrypt = require('../../node_modules/bcrypt');
 const jwt = require('../../node_modules/jsonwebtoken');
 const models = require('../../models')
 const dotenv= require('../../node_modules/dotenv')
+const fs = require("fs");
 dotenv.config();
 
 //inscription d'un user
@@ -221,15 +222,30 @@ exports.deleteUserProfile =async (req, res) => {
 		const userToFind=await models.User.findOne({
 			where:{id:req.body.id}
 		})
+		const image = await models.Post.findAll({
+			attributes:["image"],
+			where:{userId:req.body.id}
+		})
 		if (!userToFind) {
 				throw new Error("Sorry,we can't find your account");
 		}
+		//suppression des commentaires et des publication de l'user 
+		models.Commentaire.destroy({ where: { userId: req.body.id } });
+		for (i of image){
+			const filename = i.image.split('/images/')[1];
+        	fs.unlink(`image/${filename}`, () => {
+            	models.Post.destroy({ where: { userId: req.body.id } });
+        	});
+		}
+		//suppression des commentaires de la publication 
+		models.Post.destroy({ where: { userId: req.body.id } });
 		//suppression de l'user
 		userToFind.destroy({ id: req.body.id })
 		.then(() => res.status(200).json({ message: 'User delete'}))
 		.catch(e=>{console.log(e)})
 	}
 	catch(error){
+		console.log(error);
 		res.status(400).json({error})
 	}
 }

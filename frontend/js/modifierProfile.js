@@ -54,6 +54,10 @@ function deleteUser() {
         var id={
             id:sessionStorage.getItem('userId')
         }
+        //recupération des id des publication de l'user
+        
+        //suppression des publication de l'user
+        //suppression de l'user
         try{
             console.log(JSON.stringify(sessionStorage.getItem('userId')))
             let response = await fetch ("http://localhost:3000/api/user/deleteUserProfile", {
