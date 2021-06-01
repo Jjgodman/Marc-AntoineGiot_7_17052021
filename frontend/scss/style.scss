@@ -155,7 +155,7 @@ header{
     }
     input{
         position: absolute;
-        right: 5%;
+        right:5%;
         margin-top: 12px;
         height: 20px;
     }
@@ -286,4 +286,9 @@ footer{
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+@media (min-width: 630px){
+    .modifierCompte input{
+        right: 45%;
+    }
 }

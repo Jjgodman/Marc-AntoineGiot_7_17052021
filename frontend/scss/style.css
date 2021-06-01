@@ -379,4 +379,10 @@ footer a {
   margin-left: auto;
   margin-right: auto;
 }
+
+@media (min-width: 630px) {
+  .modifierCompte input {
+    right: 45%;
+  }
+}
 /*# sourceMappingURL=style.css.map */
