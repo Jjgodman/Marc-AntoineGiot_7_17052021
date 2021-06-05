@@ -124,7 +124,7 @@ async function affichagePubli(publis, user){
             document.getElementById("commentaire"+publi.id).innerHTML+=`
             <div class="listCom">
                 <div class="ctnCom">
-                    <p class="nomCom">`+com.prenom+` `+com.nom+`</p>
+                    <p class="nomCom">`+com.User.prenom+` `+com.User.nom+`</p>
                     <p class="contenuCom">`+com.message+`</p>
                 </div>
                 <button class="btnSuprCom admin" id="btnSuprCom`+com.id+`"><i class="fas fa-trash"></i></button>
